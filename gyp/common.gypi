@@ -96,7 +96,7 @@
                         # Control Flow Guard is enabled using the /d2guard4
                         # compiler setting in combination with the /guard:cf
                         # linker setting.
-                        'AdditionalOptions': ['/MP', '/d2guard4'],
+                        'AdditionalOptions': ['/MP', '/d2guard4', '/bigobj'],
                         'BufferSecurityCheck': 'true',
                         'DebugInformationFormat': '3',
                         'ExceptionHandling': '0',
