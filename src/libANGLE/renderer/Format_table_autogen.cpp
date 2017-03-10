@@ -22,7 +22,7 @@ static constexpr rx::FastCopyFunctionMap::Entry BGRAEntry = {GL_RGBA, GL_UNSIGNE
 static constexpr rx::FastCopyFunctionMap BGRACopyFunctions = {&BGRAEntry, 1};
 static constexpr rx::FastCopyFunctionMap NoCopyFunctions;
 
-constexpr Format g_formatInfoTable[] = {
+static Format g_formatInfoTable[] = {
     // clang-format off
     { Format::ID::NONE, GL_NONE, GL_NONE, nullptr, NoCopyFunctions, nullptr, nullptr, GL_NONE, 0, 0, 0, 0, 0, 0, 0, false },
     { Format::ID::A16_FLOAT, GL_ALPHA16F_EXT, GL_ALPHA16F_EXT, GenerateMip<A16F>, NoCopyFunctions, ReadColor<A16F, GLfloat>, WriteColor<A16F, GLfloat>, GL_FLOAT, 0, 0, 0, 16, 0, 0, 2, false },
