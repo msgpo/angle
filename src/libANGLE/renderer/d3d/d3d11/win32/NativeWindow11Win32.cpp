@@ -123,7 +123,7 @@ HRESULT NativeWindow11Win32::createSwapChain(ID3D11Device *device,
         swapChainDesc.SampleDesc.Quality = 0;
         swapChainDesc.BufferUsage =
             DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_BACK_BUFFER | DXGI_USAGE_SHADER_INPUT;
-        swapChainDesc.BufferCount = 2;
+        swapChainDesc.BufferCount = 6;
         swapChainDesc.Scaling     = DXGI_SCALING_STRETCH;
         swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
         swapChainDesc.AlphaMode =
@@ -156,9 +156,9 @@ HRESULT NativeWindow11Win32::createSwapChain(ID3D11Device *device,
         swapChainDesc.SampleDesc.Quality = 0;
         swapChainDesc.BufferUsage =
             DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT | DXGI_USAGE_BACK_BUFFER;
-        swapChainDesc.BufferCount   = 1;
+        swapChainDesc.BufferCount   = 6;
         swapChainDesc.Scaling       = DXGI_SCALING_STRETCH;
-        swapChainDesc.SwapEffect    = DXGI_SWAP_EFFECT_SEQUENTIAL;
+        swapChainDesc.SwapEffect    = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
         swapChainDesc.AlphaMode     = DXGI_ALPHA_MODE_UNSPECIFIED;
         swapChainDesc.Flags         = 0;
         IDXGISwapChain1 *swapChain1 = nullptr;
@@ -168,6 +168,10 @@ HRESULT NativeWindow11Win32::createSwapChain(ID3D11Device *device,
         {
             factory2->MakeWindowAssociation(getNativeWindow(), DXGI_MWA_NO_ALT_ENTER);
             *swapChain = static_cast<IDXGISwapChain *>(swapChain1);
+            IDXGIDevice1 *dxgiDevice = d3d11::DynamicCastComObject<IDXGIDevice1>(device);
+            if (dxgiDevice)
+                dxgiDevice->SetMaximumFrameLatency(3);
+            SafeRelease(dxgiDevice);
         }
         SafeRelease(factory2);
         return result;
